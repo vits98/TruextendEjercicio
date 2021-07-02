@@ -13,16 +13,16 @@ const millisToMinutesAndSeconds = (millis) => {
 };
 
 function SongCard({ song }) {
-  const classes = useStyles();
+  const styles = useStyles();
   return (
     <div>
-      <Card className={classes.root}>
+      <Card className={styles.root}>
         <CardContent>
           <Typography gutterBottom variant="h5" component="h4">
             Song:{song.trackName}
           </Typography>
           <CardMedia
-            className={classes.media}
+            className={styles.media}
             image={song.artworkUrl100}
             title="Contemplative Reptile"
           />
@@ -42,7 +42,7 @@ function SongCard({ song }) {
 }
 
 SongCard.propTypes = {
-  classes: PropTypes.object.isRequired,
+  styles: PropTypes.object.isRequired,
 };
 
 export default SongCard;

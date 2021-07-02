@@ -1,12 +1,12 @@
 import { makeStyles } from "@material-ui/core";
 
 const useStyles = makeStyles((theme) => ({
-  formControl: {
-    margin: theme.spacing(1),
-    minWidth: 120,
+  container: {
+    backgroundColor:'#00c8c8'
   },
-  selectEmpty: {
-    marginTop: theme.spacing(2),
-  },
+  buttons:{
+    width: 200,
+    height: '100%'
+  }
 }));
 export default useStyles;
