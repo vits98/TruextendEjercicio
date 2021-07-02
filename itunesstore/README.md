@@ -6,6 +6,10 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 
 In the project directory, you can run:
 
+### to run the project 
+
+cd itunesstore next, npm install then you are ready to start the app with yarn start or npm start 
+
 ### `yarn start`
 
 Runs the app in the development mode.\

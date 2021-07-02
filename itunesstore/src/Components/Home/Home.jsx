@@ -9,6 +9,23 @@ import InputLabel from "@material-ui/core/InputLabel";
 import MenuItem from "@material-ui/core/MenuItem";
 import FormControl from "@material-ui/core/FormControl";
 import Select from "@material-ui/core/Select";
+import { withStyles } from "@material-ui/core/styles";
+
+const styles = () => ({
+  container: {
+    backgroundColor: "#7FFFD4",
+  },
+  searchTextField: {
+    width: 300,
+  },
+  mediaField: {
+    width: 200,
+  },
+  buttons: {
+    height: '100%',
+    width: 200,
+  },
+});
 
 class Home extends React.Component {
   constructor(props) {
@@ -20,11 +37,14 @@ class Home extends React.Component {
     };
   }
 
-  async searchItems(searchText) {
+  async searchItems(searchText, searchMedia) {
     let songInformation;
     try {
       songInformation = await axios.get(
-        "https://itunes.apple.com/search?term=" + searchText
+        "https://itunes.apple.com/search?term=" +
+          searchText +
+          "&media=" +
+          searchMedia
       );
     } catch (error) {
       console.error(error);
@@ -34,13 +54,12 @@ class Home extends React.Component {
 
   renderList() {
     const { songs } = this.state;
-
     return (
       <Grid container>
-        {songs.map((song) => {
+        {songs.map((song, index) => {
           return (
             <Grid item xs={12} sm={6} md={4} lg={3}>
-              <SongCard key={song.trackId} song={song}>
+              <SongCard key={index + song.trackName} song={song}>
                 {" "}
               </SongCard>
             </Grid>
@@ -60,15 +79,17 @@ class Home extends React.Component {
 
   render() {
     const { searchText, searchMedia } = this.state;
+    const { classes } = this.props;
     return (
       <div>
-        <Container style={{ backgroundColor: "#7FFFD4" }}>
+        <Container className={classes.container}>
           <Grid container spacing={3}>
             <Grid item xs={12}>
               <h2>Search you tune</h2>
             </Grid>
             <Grid item xs={4}>
               <TextField
+                className={classes.searchTextField}
                 label="Song, Artist, Album"
                 id="outlined-margin-dense"
                 variant="outlined"
@@ -77,7 +98,7 @@ class Home extends React.Component {
               />
             </Grid>
             <Grid item xs={4}>
-              <FormControl variant="outlined">
+              <FormControl className={classes.mediaField} variant="outlined">
                 <InputLabel id="demo-simple-select-outlined-label">
                   Name
                 </InputLabel>
@@ -91,17 +112,20 @@ class Home extends React.Component {
                   <MenuItem value="">
                     <em>None</em>
                   </MenuItem>
-                  <MenuItem value={10}>Ten</MenuItem>
-                  <MenuItem value={20}>Twenty</MenuItem>
-                  <MenuItem value={30}>Thirty</MenuItem>
+                  <MenuItem value="all">All</MenuItem>
+                  <MenuItem value="movie">Movie</MenuItem>
+                  <MenuItem value="podcast">Podcast</MenuItem>
+                  <MenuItem value="music">Music</MenuItem>
+                  <MenuItem value="musicVideo">Music Video</MenuItem>
                 </Select>
               </FormControl>
             </Grid>
             <Grid item xs={4}>
               <Button
+                className={classes.buttons}
                 variant="outlined"
                 color="primary"
-                onClick={() => this.searchItems(searchText)}
+                onClick={() => this.searchItems(searchText, searchMedia)}
               >
                 Search
               </Button>
@@ -114,4 +138,4 @@ class Home extends React.Component {
   }
 }
 
-export default Home;
+export default withStyles(styles)(Home);
